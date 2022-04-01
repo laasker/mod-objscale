@@ -48,9 +48,7 @@ public:
     {
         float scale = creature->CustomData.GetDefault<Objscale>("scale")->scale;
 
-
-        if (scale > 0.0f)
-        {
+        if (scale > 0.0f) {
             std::string query = "REPLACE INTO `objscale_creature` (`guid`, `scale`) VALUES(" + std::to_string(creature->GetSpawnId()) + "," + std::to_string(scale) + ");";
             WorldDatabase.DirectExecute(query);
         }
@@ -59,7 +57,6 @@ public:
             WorldDatabase.DirectExecute(query);
         }
     }
-
 };
 
 class GameObjectScale : public AllGameObjectScript
@@ -72,10 +69,8 @@ public:
         std::string query = "SELECT `scale` FROM `objscale_gameobject` WHERE `guid` = " + std::to_string(gameObject->GetSpawnId()) + ";";
         QueryResult result = WorldDatabase.Query(query);
 
-        if (!result) {
-        }
-        else
-        {
+        if (!result) {}
+        else {
             Field* fields = result->Fetch();
             float  scale = fields[0].Get<float>();
             if (scale > 0.0f)
@@ -83,16 +78,14 @@ public:
                 gameObject->CustomData.Set("scale", new Objscale(scale));
                 gameObject->SetObjectScale(scale);
             }
-
         }
     }
+
     void OnGameObjectSaveToDB(GameObject* gameObject)  override
     {
         float scale = gameObject->CustomData.GetDefault<Objscale>("scale")->scale;
 
-
-        if (scale > 0.0f)
-        {
+        if (scale > 0.0f) {
             std::string query = "REPLACE INTO `objscale_gameobject` (`guid`, `scale`) VALUES(" + std::to_string(gameObject->GetSpawnId()) + "," + std::to_string(scale) + ");";
             WorldDatabase.DirectExecute(query);
         }
@@ -139,8 +132,7 @@ public:
             return false;
         }
         Creature* creature = unit->ToCreature();
-        if (scale > 0)
-        {
+        if (scale > 0) {
             creature->CustomData.GetDefault<Objscale>("scale")->scale = scale;
 
             creature->SetObjectScale(scale);
