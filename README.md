@@ -2,7 +2,7 @@
 
 ## Description
 
-This module allows to set the scale/size of GameObjects and Creatures for each individual spawn. (This is a Port of the [Objscale TC-Corepatch from Rochet2](https://github.com/Rochet2/TrinityCore/tree/objscale_3.3.5/src/server/scripts/Custom/objscale))
+This module allows to set the scale/size of GameObjects and Creatures for each individual spawn. (This is a port of the [Objscale TC-Corepatch from Rochet2](https://github.com/Rochet2/TrinityCore/tree/objscale_3.3.5/src/server/scripts/Custom/objscale))
 
 ![exampleCreature](exampleCreature.JPG)
 
@@ -42,7 +42,7 @@ replace X with any positive floatingpoint number
 the objscale Module requires:
 
 - AzerothCore v4.0.0+
-- 2 new Hooks (OnCreatureSaveToDB and OnGameObjectSaveToDB) - Will be Provided with a Pullrequest in main AC repo
+- 2 new Hooks (OnCreatureSaveToDB and OnGameObjectSaveToDB) - Will be Provided with a Pullrequest in main AC repo. Relevant git branch can be found here: https://github.com/Tralenor/azerothcore-wotlk/tree/On-Creature/GameObject-SaveToDB-Hook
 
 
 ## Installation
