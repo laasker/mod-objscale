@@ -105,6 +105,7 @@ public:
         static std::vector<ChatCommand> ObjscaleCreatureCommandTable = {
 
             {"set",         SEC_PLAYER, false, &HandleSetCommand, ""},
+            {"reset",       SEC_PLAYER, false, &HandleReSetCommand, ""},
             { "",           SEC_PLAYER, false, &HandleBaseCommand,""}
         };
 
@@ -147,6 +148,31 @@ public:
             return false;
         }
     }
+    static bool HandleReSetCommand(ChatHandler* handler)
+    {
+        Player* me = handler->GetSession()->GetPlayer();
+        if (!me)
+            return false;
+
+        Unit* unit = handler->getSelectedUnit();
+        if (!unit || unit->GetTypeId() != TYPEID_UNIT)
+        {
+            handler->SendSysMessage(LANG_SELECT_CREATURE);
+            handler->SetSentErrorMessage(true);
+            return false;
+        }
+        Creature* creature = unit->ToCreature();
+
+        creature->CustomData.GetDefault<Objscale>("scale")->scale = -1.0f;
+        float scale = creature->GetCreatureTemplate()->scale;
+        creature->SetObjectScale(scale);
+        if (!creature->IsPet())
+            creature->SaveToDB();
+
+        me->GetSession()->SendAreaTriggerMessage("Creature scale has been reset to %f", scale);
+        return true;
+
+    }
     static bool HandleBaseCommand(ChatHandler* handler, char const* args)
     {
 
@@ -165,9 +191,7 @@ public:
             return false;
         }
 
-
-        me->GetSession()->SendAreaTriggerMessage("use set command");
-
+        me->GetSession()->SendAreaTriggerMessage("use set or reset command");
         return true;
     }
 };
@@ -181,6 +205,7 @@ public:
         static std::vector<ChatCommand> ObjscaleCreatureCommandTable = {
 
             {"set", SEC_PLAYER, false, &HandleSetCommand, ""},
+            {"reset", SEC_PLAYER, false, &HandleReSetCommand, ""},
             { "",           SEC_PLAYER, false, &HandleBaseCommand,        "" }
         };
 
@@ -218,7 +243,6 @@ public:
             object->UpdateObjectVisibility();
             object->SaveToDB();
 
-
             me->GetSession()->SendAreaTriggerMessage("Object scale has been updatet to %f", scale);
             return true;
         }
@@ -228,9 +252,37 @@ public:
         }
     }
 
+    static bool HandleReSetCommand(ChatHandler* handler, GameObjectSpawnId guidLow)
+    {
+        if (!guidLow)
+            return false;
+
+        Player* me = handler->GetSession()->GetPlayer();
+        if (!me)
+            return false;
+
+        GameObject* object = handler->GetObjectFromPlayerMapByDbGuid(guidLow);
+        if (!object) {
+            handler->PSendSysMessage(LANG_COMMAND_OBJNOTFOUND, uint32(guidLow));
+            handler->SetSentErrorMessage(true);
+            return false;
+        }
+
+        object->CustomData.GetDefault<Objscale>("scale")->scale = -1.0f;
+
+        float scale = object->GetGOInfo()->size;
+
+        object->SetObjectScale(scale);
+        object->DestroyForNearbyPlayers();
+        object->UpdateObjectVisibility();
+        object->SaveToDB();
+
+        me->GetSession()->SendAreaTriggerMessage("Object scale has been reset to %f", scale);
+        return true;
+    }
+
     static bool HandleBaseCommand(ChatHandler* handler, char const* args)
     {
-
         if (!*args)
             return false;
 
@@ -238,7 +290,7 @@ public:
         if (!me)
             return false;
 
-        me->GetSession()->SendAreaTriggerMessage("use set command");
+        me->GetSession()->SendAreaTriggerMessage("use set or reset command");
 
         return true;
     }

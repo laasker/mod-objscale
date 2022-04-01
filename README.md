@@ -43,6 +43,7 @@ the objscale Module requires:
 
 - AzerothCore v4.0.0+
 - 2 new Hooks (OnCreatureSaveToDB and OnGameObjectSaveToDB) - Will be Provided with a Pullrequest in main AC repo. Relevant git branch can be found here: https://github.com/Tralenor/azerothcore-wotlk/tree/On-Creature/GameObject-SaveToDB-Hook
+  Relevant PR: https://github.com/azerothcore/azerothcore-wotlk/pull/11246
 
 
 ## Installation
