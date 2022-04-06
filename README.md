@@ -1,11 +1,11 @@
 # Short Overview (for AzerothCore-Catalouge)
 
-Name:   Objscale
-What it does: This module allows to set the scale/size of GameObjects and Creatures for each individual spawn.
-Author:   Tralenor
-Repository:   https://github.com/Tralenor/mod-objscale
-Download:   https://github.com/Tralenor/mod-objscale/archive/refs/heads/main.zip
-License:   MIT
+* Name:   Objscale
+* What it does: This module allows to set the scale/size of GameObjects and Creatures for each individual spawn.
+* Author:   Tralenor
+* Repository:   https://github.com/Tralenor/mod-objscale
+* Download:   https://github.com/Tralenor/mod-objscale/archive/refs/heads/main.zip
+* License:   MIT
 
 # Objscale
 
