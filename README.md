@@ -51,10 +51,8 @@ replace X with any positive floatingpoint number
 
 the objscale Module requires:
 
-- AzerothCore v4.0.0+
-- 2 new Hooks (OnCreatureSaveToDB and OnGameObjectSaveToDB) - Will be Provided with a Pullrequest in main AC repo. Relevant git branch can be found here: https://github.com/Tralenor/azerothcore-wotlk/tree/On-Creature/GameObject-SaveToDB-Hook
-  Relevant PR: https://github.com/azerothcore/azerothcore-wotlk/pull/11246
-
+- AzerothCore with at least commit : 6cf82e3bd6cd481405be04ae67afa30d280a91bf (added to main Repo on 6 May 2022)
+- OR: add the two needed hooks (OnCreatureSaveToDB and OnGameObjectSaveToDB) by merging https://github.com/Tralenor/azerothcore-wotlk/tree/On-Creature/GameObject-SaveToDB-Hook into your project
 
 ## Installation
 
