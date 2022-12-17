@@ -8,19 +8,42 @@
 #include "Chat.h"
 #include "Language.h"
 #include <string>
+#include "objscale.h"
 
 using namespace Acore::ChatCommands;
 
 using GameObjectSpawnId = Variant<Hyperlink<gameobject>, ObjectGuid::LowType>;
 
 
-class Objscale : public DataMap::Base
+bool ObjscaleAnnounceModule;
+class Objscale_conf : public WorldScript
 {
 public:
-    Objscale() {}
-    Objscale(float scale) : scale(scale) {}
-    float scale = -1.0f;
+    Objscale_conf() : WorldScript("Objscale_conf") { }
+
+    void OnBeforeConfigLoad(bool /*reload*/) override
+    {
+        ObjscaleAnnounceModule = sConfigMgr->GetOption<bool>("Objscale.Announce", 1);
+    }
 };
+
+
+class Objscale_Announce : public PlayerScript
+{
+public:
+
+    Objscale_Announce() : PlayerScript("Objscale_Announce") {}
+
+    void OnLogin(Player* player)
+    {
+        // Announce Module
+        if (ObjscaleAnnounceModule)
+        {
+            ChatHandler(player->GetSession()).SendSysMessage("This server is running the |cff4CFF00Objscale |rmodule");
+        }
+    }
+};
+
 
 class CreatureScale : public AllCreatureScript
 {
